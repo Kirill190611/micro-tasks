@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from "../Button";
 
 type CarsProps = {
     manufacturer: string
@@ -17,6 +18,19 @@ type BodyProps = {
     cars: CarsProps[]
 }
 export const Body = ({title, students, cars}: BodyProps) => {
+
+    const button1Foo = (subscriber: string, age: number, address: string) => {
+        console.log(subscriber, age, address)
+    }
+
+    const button2Foo = (subscriber: string) => {
+        console.log(subscriber)
+    }
+
+    const button3Foo = () => {
+        console.log("Im additional btn")
+    }
+
     return (
         <div>
             <h2>{title}</h2>
@@ -46,6 +60,9 @@ export const Body = ({title, students, cars}: BodyProps) => {
                     })
                 }
             </table>
+            <Button btnTitle="MyYTChanel-1" callBack={() => button1Foo("Vasya", 25, "Moscow")}/>
+            <Button btnTitle="MyYTChanel-2" callBack={() => button2Foo("Ivan")}/>
+            <Button btnTitle="Additional Button" callBack={button3Foo} />
         </div>
     );
 };
