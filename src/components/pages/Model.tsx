@@ -9,7 +9,7 @@ type CrossModels= {
 }
 
 const crossModels: CrossModels={
-    adidas:adidasArr,
+    adidas: adidasArr,
     puma: pumaArr
 }
 

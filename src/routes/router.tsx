@@ -19,6 +19,7 @@ export const PATH = {
     PUMA: '/puma',
     ABIBAS: '/abibas',
     PRICES: '/prices',
+    MODEL: '/:model/:id',
 } as const
 
 export const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
                 path: PATH.PRICES,
                 element: <Prices/>,
             },
+            {
+                path: PATH.MODEL,
+                element: <Model/>,
+            }
         ],
     }
 ])
