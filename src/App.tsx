@@ -1,122 +1,53 @@
 import React, {useState} from 'react';
-import './App.css';
-import {TaskType, Todolist} from './Todolist';
-import {v1} from 'uuid';
+import styles from "./components/Site.module.css";
+import {Adidas} from "./components/pages/Adidas";
+import {Puma} from "./components/pages/Puma";
+import {Abibas} from "./components/pages/Abibas";
+import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
+import {Error404} from "./components/pages/Error404";
+import styled from 'styled-components';
+import {S} from './components/pages/_styles'
+import {Model} from "./components/pages/Model";
+import {Prices} from "./components/pages/Prices";
 
-export type FilterValuesType = "all" | "active" | "completed";
-
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-
-export type TasksType = {
-    [key: string]: Array<TaskType>
-}
+const PATH = {
+    PAGE1: '/adidas',
+    PAGE2: '/puma',
+    PAGE3: '/abibas',
+    PRICES: '/prices',
+} as const
 
 function App() {
-
-    // let [tasks, setTasks] = useState([
-    //     {id: v1(), title: "HTML&CSS", isDone: true},
-    //     {id: v1(), title: "JS", isDone: true},
-    //     {id: v1(), title: "ReactJS", isDone: false},
-    //     {id: v1(), title: "Rest API", isDone: false},
-    //     {id: v1(), title: "GraphQL", isDone: false},
-    // ]);
-    // let [filter, setFilter] = useState<FilterValuesType>("all");
-
-    let todolistID1 = v1();
-    let todolistID2 = v1();
-
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'all'},
-    ])
-
-    let [tasks, setTasks] = useState<TasksType>({
-        [todolistID1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
-        ],
-        [todolistID2]: [
-            {id: v1(), title: "HTML&CSS2", isDone: true},
-            {id: v1(), title: "JS2", isDone: true},
-            {id: v1(), title: "ReactJS2", isDone: false},
-            {id: v1(), title: "Rest API2", isDone: false},
-            {id: v1(), title: "GraphQL2", isDone: false},
-        ]
-    });
-
-
-    function removeTask(todolistId: string, id: string) {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== id)})
-
-        /*let filteredTasks = tasks.filter(t => t.id != id);
-        setTasks(filteredTasks);*/
-    }
-
-    function addTask(todolistId: string, title: string) {
-        let task = {id: v1(), title, isDone: false};
-        setTasks({...tasks, [todolistId]: [task, ...tasks[todolistId]]})
-
-        /*let task = {id: v1(), title: title, isDone: false};
-        let newTasks = [task, ...tasks];
-        setTasks(newTasks);*/
-    }
-
-    function changeStatus(todolistId: string, taskId: string, isDone: boolean) {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId
-                ? {...el, isDone}
-                : el)})
-
-        /*let task = tasks.find(t => t.id === taskId);
-        if (task) {
-            task.isDone = isDone;
-        }
-
-        setTasks([...tasks]);*/
-    }
-
-    function changeFilter(todolistId: string, value: FilterValuesType) {
-        setTodolists(todolists.map(el => el.id === todolistId
-            ? {...el, filter: value}
-            : el))
-
-        /*setFilter(value);*/
-    }
-
-
     return (
-        <div className="App">
+        <div>
+            <div className={styles.header}><h1>HEADER</h1></div>
+            <div className={styles.body}>
+                <div className={styles.nav}>
+                    <S.NavWrapper><NavLink to={PATH.PAGE1}>Adidas</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE2}>Puma</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE3}>Abibas</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PRICES}>Цены для оптовиков</NavLink></S.NavWrapper>
+                </div>
+                <div className={styles.content}>
+                    <Routes>
+                        <Route path={'/'} element={<Navigate to={PATH.PAGE1}/>}/>
 
-            {todolists.map(el => {
+                        <Route path={PATH.PAGE1} element={<Adidas/>}/>
+                        <Route path={PATH.PAGE2} element={<Puma/>}/>
+                        <Route path={PATH.PAGE3} element={<Abibas/>}/>
+                        <Route path={PATH.PRICES} element={<Prices/>}/>
+                        {/*<Route path={'/adidas/:id'} element={<Model/>}/>*/}
+                        <Route path={'/:model/:id'} element={<Model/>}/>
 
-                let tasksForTodolist = tasks[el.id];
+                        <Route path={'/*'} element={<Error404/>}/>
 
-                if (el.filter === "active") {
-                    tasksForTodolist = tasks[el.id].filter(t => !t.isDone);
-                }
-                if (el.filter === "completed") {
-                    tasksForTodolist = tasks[el.id].filter(t => t.isDone);
-                }
+                        {/*<Route path={'/page/error'} element={<Error404/>}/>*/}
+                        {/*<Route path={'/*'} element={<Navigate to={'/page/error'}/>}/>*/}
+                    </Routes>
 
-                return (
-                    <Todolist key={el.id}
-                              title={el.title}
-                              todolistId={el.id}
-                              tasks={tasksForTodolist}
-                              removeTask={removeTask}
-                              changeFilter={changeFilter}
-                              addTask={addTask}
-                              changeTaskStatus={changeStatus}
-                              filter={el.filter}
-                    />
-                )
-            })}
+                </div>
+            </div>
+            <div className={styles.footer}>abibas 2023</div>
         </div>
     );
 }
