@@ -51,3 +51,5 @@ export const router = createBrowserRouter([
         ],
     }
 ])
+
+//Practice with native js: prototype, oop, classes
