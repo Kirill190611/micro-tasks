@@ -17,24 +17,10 @@ function App() {
                     <S.NavWrapper><NavLink to={PATH.PUMA}>Puma</NavLink></S.NavWrapper>
                     <S.NavWrapper><NavLink to={PATH.ABIBAS}>Abibas</NavLink></S.NavWrapper>
                     <S.NavWrapper><NavLink to={PATH.PRICES}>Цены для оптовиков</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PROTECTED_PAGE}>Protected page</NavLink></S.NavWrapper>
                 </div>
                 <div className={styles.content}>
                     <Outlet/>
-                    {/*<Routes>
-                        <Route path={'/'} element={<Navigate to={PATH.PAGE1}/>}/>
-
-                        <Route path={PATH.PAGE1} element={<Adidas/>}/>
-                        <Route path={PATH.PAGE2} element={<Puma/>}/>
-                        <Route path={PATH.PAGE3} element={<Abibas/>}/>
-                        <Route path={PATH.PRICES} element={<Prices/>}/>
-                        <Route path={'/adidas/:id'} element={<Model/>}/>
-                        <Route path={'/:model/:id'} element={<Model/>}/>
-
-                        <Route path={'/*'} element={<Error404/>}/>
-
-                        <Route path={'/page/error'} element={<Error404/>}/>
-                        <Route path={'/*'} element={<Navigate to={'/page/error'}/>}/>
-                    </Routes>*/}
                 </div>
             </div>
             <div className={styles.footer}>abibas 2023</div>

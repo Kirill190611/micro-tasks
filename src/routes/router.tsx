@@ -1,10 +1,7 @@
 import * as React from "react";
-import { createRoot } from "react-dom/client";
+import {} from "react-dom/client";
 import {
     createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
 } from "react-router-dom";
 import App from "../App";
 import {Error404} from "../components/pages/Error404";
@@ -13,13 +10,17 @@ import {Puma} from "../components/pages/Puma";
 import {Abibas} from "../components/pages/Abibas";
 import {Prices} from "../components/pages/Prices";
 import {Model} from "../components/pages/Model";
+import {ProtectedPage} from "../components/pages/ProtectedPage";
+import {ProtectedRoute} from "./ProtectedRoute";
 
 export const PATH = {
     ADIDAS: '/adidas',
     PUMA: '/puma',
     ABIBAS: '/abibas',
     PRICES: '/prices',
+    PROTECTED_PAGE: '/protected-page',
     MODEL: '/:model/:id',
+    ERROR: '/error',
 } as const
 
 export const router = createBrowserRouter([
@@ -47,9 +48,19 @@ export const router = createBrowserRouter([
             {
                 path: PATH.MODEL,
                 element: <Model/>,
-            }
+            },
+            {
+                path: PATH.ERROR,
+                element: <Error404/>,
+            },
+            {
+                path: PATH.PROTECTED_PAGE,
+                element: (
+                    <ProtectedRoute>
+                        <ProtectedPage/>
+                    </ProtectedRoute>
+                ),
+            },
         ],
     }
 ])
-
-//Practice with native js: prototype, oop, classes
