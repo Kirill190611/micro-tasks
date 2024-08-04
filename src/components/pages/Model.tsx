@@ -2,8 +2,6 @@ import {adidasArr, AdidasItem} from "./Adidas";
 import {useParams} from "react-router-dom";
 import {pumaArr, PumaItem} from "./Puma";
 
-
-
 type CrossModels= {
     [key: string]: (AdidasItem[] | PumaItem[]);
 }
@@ -14,10 +12,9 @@ const crossModels: CrossModels={
 }
 
 export const Model = () => {
-    // const params=useParams()
     const { model, id } = useParams();
     console.log(model)
-        //const currentModel=adidasArr.find(el=>el.id===Number(id))
+
     const currentModel = model
         ? crossModels[model].find((el) => el.id === Number(id))
         : null;
