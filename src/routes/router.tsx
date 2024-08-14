@@ -25,6 +25,10 @@ export const PATH = {
 
 const publicRouters: RouteObject[] = [
     {
+        index: true,
+        element: <Navigate to={PATH.ADIDAS}/>,
+    },
+    {
         path: PATH.ADIDAS,
         element: <Adidas/>,
     },

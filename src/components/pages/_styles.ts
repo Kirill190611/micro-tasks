@@ -19,7 +19,6 @@ const NavWrapper = styled.div`
   }
 `
 
-
 export const S={
     NavWrapper,
   }
